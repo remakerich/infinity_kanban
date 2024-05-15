@@ -26,8 +26,13 @@ class KanbanCubit extends Cubit<KanbanState> {
   }
 
   moveDeal(Deal deal, Stage toStage) {
-    final updatedStages = state.stages.toList();
     final fromStage = state.stages.firstWhere((stage) => stage.deals.map((e) => e.id).contains(deal.id));
+
+    if (fromStage == toStage) {
+      return;
+    }
+
+    final updatedStages = state.stages.toList();
     final fromStageIndex = state.stages.indexOf(fromStage);
     final fromStageDeals = fromStage.deals.toList();
     fromStageDeals.remove(deal);
